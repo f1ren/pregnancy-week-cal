@@ -15,10 +15,10 @@ FIRST_DATE = GIVEN_DATE
 HTML_PATH = 'cal.html'
 
 
-def get_week(at_date):
-    date_diff = at_date - GIVEN_DATE
+def get_week(at_date, given_date=GIVEN_DATE, given_week=GIVEN_WEEK, given_day=GIVEN_DAY):
+    date_diff = at_date - given_date
     days = date_diff.days
-    return [(days + 1) // 7 + GIVEN_WEEK, (days + GIVEN_DAY) % 7]
+    return [(days + 1) // 7 + given_week, (days + given_day) % 7]
 
 
 class MyCalendar(calendar.HTMLCalendar):
