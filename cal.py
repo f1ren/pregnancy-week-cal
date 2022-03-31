@@ -1,10 +1,13 @@
+import os
 from datetime import date
+
 from dateutil import relativedelta
 from dateutil.parser import parse
 import calendar
+import webbrowser
 
-GIVEN_WEEK, GIVEN_DAY = (0, 0)
-GIVEN_DATE = parse('2018-09-15').date()
+GIVEN_WEEK, GIVEN_DAY = (13, 1)
+GIVEN_DATE = parse('2022-03-31').date()
 
 # TODO: Substruct GIVEN_WEEK
 FIRST_DATE = GIVEN_DATE
@@ -78,4 +81,6 @@ for i in range(MAX_MONTHS):
     t += get_html_for_month(current_month)
     current_month = next_month(current_month)
 
-open('cal.html', 'w').write(t)
+html_path = 'cal.html'
+open(html_path, 'w').write(t)
+webbrowser.open('file://' + os.path.realpath(html_path))
