@@ -12,6 +12,8 @@ GIVEN_DATE = parse('2022-03-31').date()
 # TODO: Substruct GIVEN_WEEK
 FIRST_DATE = GIVEN_DATE
 
+HTML_PATH = 'cal.html'
+
 
 def get_week(at_date):
     date_diff = at_date - GIVEN_DATE
@@ -42,7 +44,7 @@ class MyCalendar(calendar.HTMLCalendar):
                     self.cssclasses[weekday], day)
 
 
-t = '''<style>
+HTML_HEADER = '''<style>
 body {
     font-family: 'arial';
 }
@@ -60,7 +62,6 @@ td {
 }
 </style>'''
 
-current_month = FIRST_DATE
 MAX_MONTHS = 11
 
 
@@ -77,10 +78,16 @@ def get_html_for_month(current_month):
     return f'{c.formatmonth(y, m)}'
 
 
-for i in range(MAX_MONTHS - (GIVEN_WEEK // 4)):
-    t += get_html_for_month(current_month)
-    current_month = next_month(current_month)
+def build_html():
+    t = HTML_HEADER[:]
+    current_month = FIRST_DATE
+    for i in range(MAX_MONTHS - (GIVEN_WEEK // 4)):
+        t += get_html_for_month(current_month)
+        current_month = next_month(current_month)
+    return t
 
-html_path = 'cal.html'
-open(html_path, 'w').write(t)
-webbrowser.open('file://' + os.path.realpath(html_path))
+
+if __name__ == '__main__':
+    code = build_html()
+    open(HTML_PATH, 'w').write(code)
+    webbrowser.open('file://' + os.path.realpath(HTML_PATH))
