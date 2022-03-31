@@ -16,7 +16,7 @@ FIRST_DATE = GIVEN_DATE
 def get_week(at_date):
     date_diff = at_date - GIVEN_DATE
     days = date_diff.days
-    return [days // 7 + GIVEN_WEEK, (days + GIVEN_DAY) % 7]
+    return [(days + 1) // 7 + GIVEN_WEEK, (days + GIVEN_DAY) % 7]
 
 
 class MyCalendar(calendar.HTMLCalendar):
