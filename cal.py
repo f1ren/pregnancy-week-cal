@@ -61,7 +61,7 @@ td {
 </style>'''
 
 current_month = FIRST_DATE
-MAX_MONTHS = 10
+MAX_MONTHS = 11
 
 
 def next_month(x):
@@ -77,7 +77,7 @@ def get_html_for_month(current_month):
     return f'{c.formatmonth(y, m)}'
 
 
-for i in range(MAX_MONTHS):
+for i in range(MAX_MONTHS - (GIVEN_WEEK // 4)):
     t += get_html_for_month(current_month)
     current_month = next_month(current_month)
 
