@@ -1,13 +1,13 @@
 import os
-from datetime import date
+from datetime import date, timedelta
 
 from dateutil import relativedelta
 from dateutil.parser import parse
 import calendar
 import webbrowser
 
-GIVEN_WEEK, GIVEN_DAY = (13, 1)
-GIVEN_DATE = parse('2022-03-31').date()
+GIVEN_WEEK, GIVEN_DAY = (17, 5)
+GIVEN_DATE = parse('2022-04-21').date()
 
 # TODO: Substruct GIVEN_WEEK
 FIRST_DATE = GIVEN_DATE
@@ -16,9 +16,13 @@ HTML_PATH = 'cal.html'
 
 
 def get_week(at_date, given_date=GIVEN_DATE, given_week=GIVEN_WEEK, given_day=GIVEN_DAY):
-    date_diff = at_date - given_date
+    age_in_days_at_given_date = given_week * 7 + given_day
+    pregnancy_start_date = given_date - timedelta(days=age_in_days_at_given_date)
+    date_diff = at_date - pregnancy_start_date
     days = date_diff.days
-    return [(days + 1) // 7 + given_week, (days + given_day) % 7]
+    week = days // 7
+    day = days % 7
+    return [week, day]
 
 
 class MyCalendar(calendar.HTMLCalendar):
@@ -80,7 +84,7 @@ def get_html_for_month(current_month):
 
 def build_html():
     t = HTML_HEADER[:]
-    current_month = FIRST_DATE
+    current_month = GIVEN_DATE
     for i in range(MAX_MONTHS - (GIVEN_WEEK // 4)):
         t += get_html_for_month(current_month)
         current_month = next_month(current_month)
