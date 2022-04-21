@@ -7,7 +7,7 @@ import calendar
 import webbrowser
 
 GIVEN_WEEK, GIVEN_DAY = (17, 5)
-GIVEN_DATE = parse('2022-04-21').date()
+GIVEN_DATE = parse('2022-04-20').date()
 
 # TODO: Substruct GIVEN_WEEK
 FIRST_DATE = GIVEN_DATE
@@ -15,6 +15,7 @@ FIRST_DATE = GIVEN_DATE
 HTML_PATH = 'cal.html'
 
 
+# TODO Refactor into a class and set pregnancy_start_date on __init__
 def get_week(at_date, given_date=GIVEN_DATE, given_week=GIVEN_WEEK, given_day=GIVEN_DAY):
     age_in_days_at_given_date = given_week * 7 + given_day
     pregnancy_start_date = given_date - timedelta(days=age_in_days_at_given_date)
